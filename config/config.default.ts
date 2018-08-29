@@ -1,4 +1,8 @@
+import * as dotenv from 'dotenv';
+
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+
+dotenv.config();
 
 // for config.{env}.ts
 export type DefaultConfig = PowerPartial<EggAppConfig & BizConfig>;
@@ -10,7 +14,6 @@ export interface BizConfig {
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig> & BizConfig;
-
   // app special config
   config.sourceUrl = `https://github.com/eggjs/examples/tree/master/${appInfo.name}`;
 
@@ -20,6 +23,9 @@ export default (appInfo: EggAppInfo) => {
 
   // add your config here
   config.middleware = [];
+
+  // test
+  config.terminal = process.env.TERMINAL;
 
   return config;
 };

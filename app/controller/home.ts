@@ -5,4 +5,14 @@ export default class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = await ctx.service.test.sayHi('egg');
   }
+
+  public async demo() {
+    const { app, ctx } = this;
+    const terminal = app.config.terminal;
+    const desc = 'dddddd';
+    ctx.body = {
+      terminal,
+      desc,
+    };
+  }
 }

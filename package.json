@@ -21,8 +21,11 @@
     "clean": "ets clean"
   },
   "dependencies": {
+    "@types/dotenv": "^4.0.3",
+    "dotenv": "^6.0.0",
     "egg": "^2.6.1",
-    "egg-scripts": "^2.6.0"
+    "egg-scripts": "^2.6.0",
+    "mongodb": "^3.1.4"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",
