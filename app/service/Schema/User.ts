@@ -11,9 +11,10 @@ export default class User extends Service {
         age: String,
         name: String,
         city: String,
-        id: Date,
+        id: String,
         _id: ObjectId,
       });
+      // @todo 引入文件,避免每次都new
       return userSchema;
     }
 }
