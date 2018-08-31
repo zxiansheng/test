@@ -10,9 +10,11 @@ export default class HomeController extends Controller {
     const { app, ctx } = this;
     const terminal = app.config.terminal;
     const desc = 'dddddd';
+    const user = await ctx.service.home.findUser();
     ctx.body = {
       terminal,
       desc,
+      user,
     };
   }
 }
