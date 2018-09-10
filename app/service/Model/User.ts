@@ -11,8 +11,8 @@ export default class User extends Service {
     db.once('open', () => {
       console.log("Connection Successful!");
     });
-    const { ctx } = this;
-    const mySchema = await ctx.service.schema.user.createSchema();
+    // const { ctx } = this;
+    const mySchema = require('../../schema/user');   //await ctx.service.schema.user.createSchema();
     const userModle = mongoose.model('User', mySchema, 'user');
     let lets = '';
     lets = userModle.find({}, (err, data) => {

@@ -4,7 +4,6 @@
 import Home from '../../../app/service/Home';
 import Test from '../../../app/service/Test';
 import ModelUser from '../../../app/service/Model/User';
-import SchemaUser from '../../../app/service/Schema/User';
 
 declare module 'egg' {
   interface IService {
@@ -12,9 +11,6 @@ declare module 'egg' {
     test: Test;
     model: {
       user: ModelUser;
-    };
-    schema: {
-      user: SchemaUser;
     };
   }
 }
