@@ -15,6 +15,7 @@ export default class HomeController extends Controller {
       terminal,
       desc,
       user,
+      test: 'ddddddd',
     };
   }
 }

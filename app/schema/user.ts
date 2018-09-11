@@ -10,4 +10,4 @@ id: { type: String },
 _id: ObjectId,
 });
 
-module.exports = userSchema;
+export { userSchema };
