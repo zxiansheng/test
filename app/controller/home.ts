@@ -26,4 +26,12 @@ export default class HomeController extends Controller {
       test: 'ddddddd',
     };
   }
+
+  public async testRedis() {
+    const { ctx, app } = this;
+    const datas = await app.redis.get('localRedis').set('test', 'dsdsdsd');
+    ctx.body = {
+      datas,
+    };
+  }
 }

@@ -42,5 +42,17 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  // redis
+  config.redis = {
+    clients: {
+      localRedis: {
+        port: 6379,
+        host: process.env.REDIS_LOCLA_HOST,
+        db: 0,
+        password: process.env.REDIS_LOCLA_PASSWORD || '',
+      },
+    },
+  };
+
   return config;
 };

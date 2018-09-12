@@ -13,9 +13,9 @@ export default (app: Application) => {
                 err,
               });
         });
-        // connect.once('open', () => {
-        //     console.log("Connection Successful!");
-        // });
+        connect.once('open', () => {
+            console.log("Connection Successful!");
+        });
         app.mongo_papa = connect;
 
         // @todo 加载多数据库配置
