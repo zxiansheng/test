@@ -67,7 +67,7 @@ export default (appInfo: EggAppInfo) => {
 
   // middleware
   config.middleware = [
-    'response',
+    'uniteresponse',
   ];
 
   return config;

@@ -36,6 +36,7 @@ export default class HomeController extends Controller {
       });
         redisData = 'dsdsdsd';
     }
+
     ctx.body = {
       redisData,
     };
