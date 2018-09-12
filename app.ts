@@ -8,10 +8,16 @@ export default (app: Application) => {
         // 链接mongodb
         // const connect = mongoose.connect('mongodb://localhost:27017/papapa');
         const connect = mongoose.createConnection('mongodb://localhost:27017/papapa');
-        connect.on('error', console.error.bind(console, 'connection error:'));
-        connect.once('open', () => {
-            console.log("Connection Successful!");
+        connect.on('error', (err) => {
+            app.getLogger('monggoErrorLogger').info({
+                err,
+              });
         });
+        // connect.once('open', () => {
+        //     console.log("Connection Successful!");
+        // });
         app.mongo_papa = connect;
+
+        // @todo 加载多数据库配置
     });
 };

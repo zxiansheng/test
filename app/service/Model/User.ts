@@ -1,6 +1,5 @@
 import { Service } from 'egg';
 import { userSchema } from '../../schema/user';
-// const mongoose = require('mongoose');
 
 export default class User extends Service {
 

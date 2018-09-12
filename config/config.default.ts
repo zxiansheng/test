@@ -2,6 +2,8 @@ import * as dotenv from 'dotenv';
 
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
+import path from 'path';
+
 dotenv.config();
 
 // for config.{env}.ts
@@ -26,6 +28,19 @@ export default (appInfo: EggAppInfo) => {
 
   // test
   config.terminal = process.env.TERMINAL;
+
+  // customlogger
+  config.customLogger = {
+    testLogger: {
+      file: path.join(appInfo.root, 'logs/test.log'),
+    },
+    monggoErrorLogger: {
+      file: path.join(appInfo.root, 'logs/mongoerr.log'),
+    },
+    monggoLogger: {
+      file: path.join(appInfo.root, 'logs/mongo.log'),
+    },
+  };
 
   return config;
 };

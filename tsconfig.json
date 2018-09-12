@@ -22,6 +22,7 @@
     "inlineSourceMap": true,
     "importHelpers": true,
     "esModuleInterop": true,
+    // "allowSyntheticDefaultImports": true,
   },
   "exclude": [
     "app/public",

@@ -11,6 +11,14 @@ export default class HomeController extends Controller {
     const terminal = app.config.terminal;
     const desc = 'dddddd';
     const user = await ctx.service.home.findUser();
+    // add log
+    app.getLogger('testLogger').info({
+      terminal,
+      desc,
+      user,
+      test: 'ddddddd',
+      logname: 'testLogger',
+    });
     ctx.body = {
       terminal,
       desc,
