@@ -14,7 +14,7 @@ export default (app: Application) => {
               });
         });
         connect.once('open', () => {
-            console.log("Connection Successful!");
+            console.log("Mongoose Connection Successful!");
         });
         app.mongo_papa = connect;
 

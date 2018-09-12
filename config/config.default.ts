@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv';
-
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
-
+import { get } from 'lodash';
 import path from 'path';
 
 dotenv.config();
@@ -53,6 +52,23 @@ export default (appInfo: EggAppInfo) => {
       },
     },
   };
+
+  // error resopnse
+  config.onerror = {
+    json: (err, ctx) => {
+      ctx.body = {
+        code: get(err, 'code', ''),
+        message: get(err, 'message', 'unknow'),
+        status: get(err, 'status', 0),
+        url: get(ctx, 'url', ''),
+      };
+    },
+  };
+
+  // middleware
+  config.middleware = [
+    'response',
+  ];
 
   return config;
 };
