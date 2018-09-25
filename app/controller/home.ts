@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import { random } from 'lodash';
 
 export default class HomeController extends Controller {
   public async index() {
@@ -39,6 +40,27 @@ export default class HomeController extends Controller {
 
     ctx.body = {
       data: redisData,
+    };
+  }
+
+  public async socket() {
+    const { ctx } = this;
+    ctx.body = {
+      data: 111,
+    };
+  }
+
+  // 加载模板
+  public async views() {
+    const { ctx } = this;
+    await ctx.render('socket');
+  }
+
+  // test
+  public async says() {
+    const { ctx } = this;
+    ctx.body = {
+      data: 'yaya' + random(),
     };
   }
 }

@@ -65,10 +65,27 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
-  // middleware
-  config.middleware = [
-    'uniteresponse',
-  ];
+  // Global middleware
+  // config.middleware = [
+  //   'uniteresponse',
+  // ];
+
+  // view
+  config.view = {
+    root: [
+      path.join(appInfo.baseDir, 'app/view'),
+    ].join(','),
+    defaultViewEngine: 'nunjucks',
+    defaultExtension: '.nj',
+  };
+
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
+  config.ipHeaders = ' x-real-forwarded-for,x-forwarded-for,client-ip ';
 
   return config;
 };
