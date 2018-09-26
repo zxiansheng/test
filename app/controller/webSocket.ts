@@ -8,7 +8,7 @@ const clientReady = false;
 const serverReady = false;
 const a = [];
 const WSSERVICE = ws.createServer((conn) => {
-  console.log('New connection');
+  console.log('New a connection');
   conn.on('text', (str) => {
     console.log('Recevied' + str);
     conn.sendText(str.toUpperCase() + '!!!');
