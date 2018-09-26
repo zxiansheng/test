@@ -2,6 +2,11 @@
 const ws = require('nodejs-websocket');
 const PORT = 8080;
 
+const str1 = null;
+const str2 = null;
+const clientReady = false;
+const serverReady = false;
+const a = [];
 const WSSERVICE = ws.createServer((conn) => {
   console.log('New connection');
   conn.on('text', (str) => {
