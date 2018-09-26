@@ -7,6 +7,7 @@ const str2 = null;
 const clientReady = false;
 const serverReady = false;
 const a = [];
+// @todo 增加多人聊天发送消息
 const WSSERVICE = ws.createServer((conn) => {
   console.log('New a connection');
   conn.on('text', (str) => {
