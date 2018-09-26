@@ -33,7 +33,10 @@
     "egg-view-nunjucks": "^2.2.0",
     "lodash": "^4.17.10",
     "mongodb": "^3.1.4",
-    "mongoose": "^5.2.12"
+    "mongoose": "^5.2.12",
+    "nodejs-websocket": "^1.7.1",
+    "socket.io": "^2.1.1",
+    "ws": "^6.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",

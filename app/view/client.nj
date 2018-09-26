@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="jquery-1.11.1.min.js"></script>
+    <title>client</title>
+</head>
+<body>
+    <input type="button" id='test' value='点我测试' />
+    <script type="text/javascript">
+        $(function(){
+            //websocket测试服务器
+            var url = "ws://127.0.0.1:8080";
+            var ws = null;
+            function createws(){
+                if('WebSocket' in window)
+                    ws = new WebSocket(url);
+                else if('MOzWebSocket' in window)
+                    ws = new MozWebSocket(url);
+                else
+                    console.log("浏览器太旧，不支持");
+            }
+
+            function btnfun(){
+                createws();
+                //成功建立WebSocket连接时触发onopen事件，通常客户端发送数据都是放在open事件里面
+                ws.onopen = function(){
+                    console.log("connected");
+                    ws.send("hello world");
+                };
+                //接受服务器响应数据时触发onmessage事件
+                ws.onmessage = function(event){
+                    console.log("receive message:"+event.data);
+                    //关闭websocket连接
+//                    ws.close(999,"close normal");
+                };
+                //服务器处理异常，通常在服务器里try-catch发生异常时或者连接异常时触发onerror事件
+                ws.onerror = function(err){
+                    console.log("error: "+err);
+                    ws.close(1000,"close after error");
+                };
+                //websocket连接关闭时触发onclose事件
+                ws.onclose = function(event){
+                    console.log("close reason: "+event.reason);
+                };
+            };
+            //为button绑定事件
+            $("#test").click(btnfun);
+        });
+    </script>
+</body>
