@@ -6,13 +6,14 @@ const str1 = null;
 const str2 = null;
 const clientReady = false;
 const serverReady = false;
-const a = [];
+const room = new Array();
+const msgArr = new Array();
 // @todo 增加多人聊天发送消息
 const WSSERVICE = ws.createServer((conn) => {
-  console.log('New a connection');
+  console.log('New a connection', 111, conn, 222);
   // 定义消息数组
-  var msg_arr: any [];
   conn.on('text', (str) => {
+    room.push(conn);
     // 心跳检测返回心跳检测的信息
     if (str.indexOf('heartTest') === -1) {
       str = JSON.parse(str);
@@ -20,8 +21,10 @@ const WSSERVICE = ws.createServer((conn) => {
       const users = '用户' + str.uid + '号说';
       const dataStr = { user: users, msgs };
       const repData = JSON.stringify(dataStr);
-      msg_arr.push(repData);
-      conn.sendText(repData);
+      msgArr.push(repData);
+      room.forEach((dat) => {
+        dat.sendText(JSON.stringify(msgArr));
+      });
     } else {
       conn.sendText('heartTest');
     }
