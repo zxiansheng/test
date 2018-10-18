@@ -4,9 +4,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="jquery-1.11.1.min.js"></script>
     <title>client</title>
+    <style>
+        #scontent {
+            border-style:solid;
+            border-color:#ff0000 #0000ff;
+        }
+    </style>
 </head>
 <body>
-    <input type="button" id='test' value='点我测试' />
+    <input type="button" id='test' value='确认发送' />
+    <div>
+        <p>请输入内容</p><input type="text" id="sends" value="">
+    </div>
+    <div id="scontent">
+
+    </div>
     <script type="text/javascript">
         $(function(){
             //websocket测试服务器
@@ -22,19 +34,28 @@
             }
 
             function btnfun(){
+                // 获取用户输入的内容
+                let msg = $('#sends').val();
                 createws();
                 //成功建立WebSocket连接时触发onopen事件，通常客户端发送数据都是放在open事件里面
                 ws.onopen = function(){
                     console.log("connected");
-                    ws.send("hello world");
+                    let send_smg = {uid: 2, msg: msg};
+                    ws.send(JSON.stringify(send_smg)); // 发送消息
                     heartCheck.start();// 心跳监测
                 };
                 //接受服务器响应数据时触发onmessage事件
                 ws.onmessage = function(event){
-                    console.log("receive message:"+event.data);
+                    let revice_data = event.data;
+                    console.log("服务器返回数据"+revice_data);
                     heartCheck.reset(); // 重置心跳检测
                     //关闭websocket连接
 //                    ws.close(999,"close normal");
+                    if(event.data.indexOf('heartTest') === -1) {
+                        revice_data = JSON.parse(revice_data);
+                        // 将接受到的消息插入到div中
+                        $('#scontent').append("<li>" + '当前：' + revice_data.user + ' ' + revice_data.msgs + "</li>");
+                    }
                 };
                 //服务器处理异常，通常在服务器里try-catch发生异常时或者连接异常时触发onerror事件
                 ws.onerror = function(err){
@@ -63,7 +84,7 @@
                 start: function(){
                     var self = this;
                     this.timeoutObj = setTimeout(function(){
-                        ws.send("Heart Beat" + "  " + getNowDate());
+                        ws.send("heartTest" + " " + getNowDate());
                         self.serverTimeoutObj = setTimeout(function(){
                             ws.close();//如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
                         }, self.timeout)
