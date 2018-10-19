@@ -9,6 +9,8 @@ const serverReady = false;
 let room = new Array();
 const msgArr = new Array();
 // @todo 增加多人聊天发送消息
+// @todo 增加日志 消息存储到redis中
+// @todo 增加权限
 const WSSERVICE = ws.createServer((conn) => {
   console.log('New a connection');
   // 定义消息数组
