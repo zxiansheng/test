@@ -21,55 +21,62 @@
     </div>
     <script type="text/javascript">
         $(function(){
+            //为button绑定事件
+            $("#test").click(btnfun);
             //websocket测试服务器
             var url = "ws://127.0.0.1:8080";
             var ws = null;
-            function createws(){
-                if('WebSocket' in window)
-                    ws = new WebSocket(url);
-                else if('MOzWebSocket' in window)
-                    ws = new MozWebSocket(url);
-                else
-                    console.log("浏览器太旧，不支持");
+
+            if('WebSocket' in window) {
+                ws = new WebSocket(url);
+            } else if('MOzWebSocket' in window) {
+                ws = new MozWebSocket(url);
+            } else {
+                console.log("浏览器太旧，不支持");
             }
 
+            //成功建立WebSocket连接时触发onopen事件，通常客户端发送数据都是放在open事件里面
+            ws.onopen = function(){
+                console.log("connected");
+                heartCheck.start();// 心跳监测
+            };
             function btnfun(){
                 // 获取用户输入的内容
                 let msg = $('#sends').val();
-                createws();
-                //成功建立WebSocket连接时触发onopen事件，通常客户端发送数据都是放在open事件里面
-                ws.onopen = function(){
-                    console.log("connected");
-                    let send_smg = {uid: 2, msg: msg};
-                    ws.send(JSON.stringify(send_smg)); // 发送消息
-                    heartCheck.start();// 心跳监测
-                };
-                //接受服务器响应数据时触发onmessage事件
-                ws.onmessage = function(event){
-                    let revice_data = event.data;
-                    console.log("服务器返回数据"+revice_data);
-                    heartCheck.reset(); // 重置心跳检测
-                    //关闭websocket连接
-//                    ws.close(999,"close normal");
-                    if(event.data.indexOf('heartTest') === -1) {
-                        revice_data = JSON.parse(revice_data);
-                        // 将接受到的消息插入到div中
-                        $('#scontent').append("<li>" + '当前：' + revice_data.user + ' ' + revice_data.msgs + "</li>");
-                    }
-                };
-                //服务器处理异常，通常在服务器里try-catch发生异常时或者连接异常时触发onerror事件
-                ws.onerror = function(err){
-                    console.log("error: "+err);
-                    reconnect();
-                    ws.close(1000,"close after error");
-                };
-                //websocket连接关闭时触发onclose事件
-                ws.onclose = function(event){
-                    console.log("close reason: "+event.reason);
-                };
+                let send_smg = {uid: 2, msg: msg};
+                ws.send(JSON.stringify(send_smg)); // 发送消息
+
             };
-            //为button绑定事件
-            $("#test").click(btnfun);
+            //接受服务器响应数据时触发onmessage事件
+            ws.onmessage = function(event){
+                let revice_data = event.data;
+                console.log("服务器返回数据"+revice_data);
+                heartCheck.reset(); // 重置心跳检测
+                //关闭websocket连接
+//                    ws.close(999,"close normal");
+                if(revice_data.indexOf('heartTest') === -1) {
+                    revice_data = JSON.parse(revice_data);
+//                        revice_data.forEach(function(ele, index){
+//                            // 将接受到的消息插入到div中
+//                            let one = JSON.parse(ele);
+//                            let users = one.user;
+//                            let msgs = one.msgs;
+//                            $('#scontent').append("<li>" + '当前：' + users + ' ' + msgs + "</li>");
+//                        });
+                    $('#scontent').append("<li>" + '当前：' + revice_data.user + ' ' + revice_data.msgs + "</li>");
+                }
+            };
+            //服务器处理异常，通常在服务器里try-catch发生异常时或者连接异常时触发onerror事件
+            ws.onerror = function(err){
+                console.log("error: "+err);
+                reconnect();
+                ws.close(1000,"close after error");
+            };
+            //websocket连接关闭时触发onclose事件
+            ws.onclose = function(event){
+                reconnect();
+                console.log("close reason: "+event.reason);
+            };
 
             // 心跳检测
             var heartCheck = {
@@ -86,7 +93,7 @@
                     this.timeoutObj = setTimeout(function(){
                         ws.send("heartTest" + " " + getNowDate());
                         self.serverTimeoutObj = setTimeout(function(){
-                            ws.close();//如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
+//                            ws.close();//如果onclose会执行reconnect，我们执行ws.close()就行了.如果直接执行reconnect 会触发onclose导致重连两次
                         }, self.timeout)
                     }, this.timeout)
                 },
