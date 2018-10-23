@@ -3,3 +3,4 @@
 
 import 'egg-view-nunjucks';
 import 'egg-redis';
+import 'egg-jwt';

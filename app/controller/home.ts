@@ -63,4 +63,12 @@ export default class HomeController extends Controller {
       data: 'yaya' + random(),
     };
   }
+
+  // jwt test
+  public async jwts() {
+    const { ctx } = this;
+    ctx.body = {
+      data: 'jwt' + random(),
+    };
+  }
 }

@@ -87,5 +87,15 @@ export default (appInfo: EggAppInfo) => {
 
   config.ipHeaders = ' x-real-forwarded-for,x-forwarded-for,client-ip ';
 
+  // jwt
+  config.jwt = {
+    secret: 'zxiansheng',
+    expiresIn: process.env.JWT_EXPIRES || '7 days',
+    // clockTolerance: process.env.JWT_TOLERANCE || 10,
+    // isRevoked: async (ctx, payload) => {
+    //     return await ctx.service.common.user.auth.isRevoked(payload.id, ctx.token);
+    // },
+  };
+
   return config;
 };

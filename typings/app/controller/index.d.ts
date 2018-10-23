@@ -3,14 +3,12 @@
 
 import Article from '../../../app/controller/article';
 import Home from '../../../app/controller/home';
-import Socket from '../../../app/controller/socket';
-import WebSocket from '../../../app/controller/webSocket';
+import Jwtdemo from '../../../app/controller/jwtdemo';
 
 declare module 'egg' {
   interface IController {
     article: Article;
     home: Home;
-    socket: Socket;
-    webSocket: WebSocket;
+    jwtdemo: Jwtdemo;
   }
 }
