@@ -14,6 +14,7 @@ export default (app: Application) => {
   router.get('/socket', app.middleware.uniteresponse(), controller.home.socket);
   router.post('/says', controller.home.says);
   router.get('/says', controller.home.says);
+  router.get('/insect', controller.insect.index);
 
   // jwt
   router.get('/jwt', jwt, controller.jwtdemo.jwts);

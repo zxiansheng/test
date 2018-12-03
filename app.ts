@@ -7,7 +7,7 @@ export default (app: Application) => {
     app.beforeStart(() => {
         // 链接mongodb
         // const connect = mongoose.connect('mongodb://localhost:27017/papapa');
-        const connect = mongoose.createConnection('mongodb://localhost:27017/papapa');
+        const connect = mongoose.createConnection('mongodb://106.13.38.98:27017/papapa');
         connect.on('error', (err) => {
             app.getLogger('monggoErrorLogger').info({
                 err,
