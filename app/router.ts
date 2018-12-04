@@ -14,7 +14,8 @@ export default (app: Application) => {
   router.get('/socket', app.middleware.uniteresponse(), controller.home.socket);
   router.post('/says', controller.home.says);
   router.get('/says', controller.home.says);
-  router.get('/insect', controller.insect.index);
+  router.get('/industry', controller.insect.industry);// 爬行业信息
+  router.get('/position', controller.insect.position);// 爬分类信息
 
   // jwt
   router.get('/jwt', jwt, controller.jwtdemo.jwts);
