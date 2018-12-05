@@ -41,19 +41,38 @@ export default class InsectController extends Controller {
           console.log(error);
         } else {
           let $ = res.$;
-          // 查找出父级分类id
-          $(".jobcatebox tbody tr").each(function(_, th){
-            console.log($(th).find('th').html());
+          let ele = $("#sidebar-left");
+          // 获取第一级分类
+          ele.each(function(_, li){
+            let father = $(li).find('a').text()
+            console.log(father);
+            // console.log($(th).find('th').html());
+          });
+          
+          // 获取二级分类
+          let part = $("#sidebar-right ul li");
+          part.each(function(_, item){
+            let second = $(item).find('strong').text();
+            console.log('this is 二级分类' + second);
+
+            // 获取三级分类
+            let son = $(item).find('a').text();
+            console.log('this is 三级分类' + son);
           });
 
-          console.log($("title").text());
+          // 获取三级分类
+          // part.each(function(_, item){
+          //   let son = $(item).find('a').text();
+          //   console.log(son);
+          // });
+          // console.log($("title").text());
         }
         done();
       }
     });
 
     c.queue(
-      "https://tj.58.com/job.shtml?PGTID=0d002408-0000-0338-10ec-6a63796dab0d&ClickID=1"
+      "https://tj.58.com/job.shtml?utm_source=sem-baidu-pc&spm=105916146735.26420796323&PGTID=0d100000-0001-286e-0f49-040309711f91&ClickID=2"
     );
     ctx.body = {ret:'ddd'};
   }
