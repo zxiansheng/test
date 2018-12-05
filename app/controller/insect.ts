@@ -30,6 +30,32 @@ export default class InsectController extends Controller {
     );
     ctx.body = {ret:'ddd'};
   }
+
+  // 爬顶级父类职位
+  public async firstposition() {
+    const { ctx } = this;
+    let c = new Crawler({
+      maxConnections : 10,
+      callback: (error, res, done) => {
+        if (error) {
+          console.log(error);
+        } else {
+          let $ = res.$;
+          // 获取第一级分类
+          $("#sidebar-left li").each(function(_, a){
+            let father = $(a).text();
+            ctx.service.addConfig.fposition(father);
+          });
+        }
+        done();
+      }
+    });
+
+    c.queue(
+      "https://tj.58.com/job.shtml?PGTID=0d100000-0001-2519-c40c-7b93cd2f5ade&ClickID=2"
+    );
+    ctx.body = {ret:'ddd'};
+  }
   
   // 爬职位分类
   public async position() {
@@ -43,21 +69,19 @@ export default class InsectController extends Controller {
           let $ = res.$;
           let ele = $("#sidebar-left");
           // 获取第一级分类
-          ele.each(function(_, li){
-            let father = $(li).find('a').text()
-            console.log(father);
-          
-          });
-          
           // 获取二级分类
           let part = $("#sidebar-right ul li");
-          part.each(function(_, item){
-            let second = $(item).find('strong').text();
-            console.log('this is 二级分类' + second);
-
-            // 获取三级分类
-            let son = $(item).find('a').text();
-            console.log('this is 三级分类' + son);
+          ele.each(function(_, li){
+            let father = $(li).find('a').text()
+            console.log('一级分类为： + father' + father);
+            part.each(function(_, item){
+              // let second = $(item).find('strong').text();
+              // console.log('this is 二级分类' + second);
+  
+              // 获取二级和三级分类 第一个是二级分类,之后的为三级分类
+              let son = $(item).find('a').text();
+              console.log('this is 二级和三级分类：' + son);
+            });
           });
         }
         done();
@@ -65,7 +89,7 @@ export default class InsectController extends Controller {
     });
 
     c.queue(
-      "https://tj.58.com/job.shtml?utm_source=sem-baidu-pc&spm=105916146735.26420796323&PGTID=0d100000-0001-286e-0f49-040309711f91&ClickID=2"
+      "https://tj.58.com/job.shtml?PGTID=0d100000-0001-2519-c40c-7b93cd2f5ade&ClickID=2"
     );
     ctx.body = {ret:'ddd'};
   }

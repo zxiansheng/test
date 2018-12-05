@@ -16,6 +16,7 @@ export default (app: Application) => {
   router.get('/says', controller.home.says);
   router.get('/industry', controller.insect.industry);// 爬行业信息
   router.get('/position', controller.insect.position);// 爬分类信息
+  router.get('/firstposition', controller.insect.firstposition);// 爬分类信息
 
   // jwt
   router.get('/jwt', jwt, controller.jwtdemo.jwts);

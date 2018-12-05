@@ -14,4 +14,14 @@ export default class AddConfig extends Service {
     const one = ctx.service.model.config.addIndustry(data);
     return one;
   }
+
+  /**
+   * 顶级职位配置信息
+   * @param data - 顶级信息
+   */
+  public fposition(data) {
+    const { ctx } = this;
+    const one = ctx.service.model.config.addfPosition(data);
+    return one;
+  }
 }
