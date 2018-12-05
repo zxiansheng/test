@@ -17,7 +17,9 @@ export default (app: Application) => {
   router.get('/industry', controller.insect.industry);// 爬行业信息
   router.get('/position', controller.insect.position);// 爬分类信息
   router.get('/firstposition', controller.insect.firstposition);// 爬分类信息
-
+  router.get('/repirePosition', controller.insect.repirePosition);// 修正分类数据
+  router.get('/relationPosition', controller.insect.relationPosition);// 修正分类数据
+  
   // jwt
   router.get('/jwt', jwt, controller.jwtdemo.jwts);
   router.get('/send/token', controller.jwtdemo.getToken);
