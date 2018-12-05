@@ -46,7 +46,7 @@ export default class InsectController extends Controller {
           ele.each(function(_, li){
             let father = $(li).find('a').text()
             console.log(father);
-            // console.log($(th).find('th').html());
+          
           });
           
           // 获取二级分类
@@ -59,13 +59,6 @@ export default class InsectController extends Controller {
             let son = $(item).find('a').text();
             console.log('this is 三级分类' + son);
           });
-
-          // 获取三级分类
-          // part.each(function(_, item){
-          //   let son = $(item).find('a').text();
-          //   console.log(son);
-          // });
-          // console.log($("title").text());
         }
         done();
       }
