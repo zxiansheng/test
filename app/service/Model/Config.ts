@@ -46,4 +46,26 @@ export default class Config extends Service {
       await this.app.mysql.update('jike_position_config', rows);
     }
   }
+
+  // 插入其他级别的职位
+  public async otherPosition(data) {
+    data = _.trim(data);
+    console.log(data.length, data);
+    let result = await this.app.mysql.insert('jike_position_config',
+    {
+      type_name: data,
+      parent_id: 0,
+    });
+    return result;
+    // if (result.insertId > 0) {
+    //   let addId = result.insertId;
+    //   let number = _.padStart(addId, 4, '0');
+    //   // 将编号重新更新
+    //   let rows = {
+    //     id: addId,
+    //     type_number: number,
+    //   };
+    //   await this.app.mysql.update('jike_position_config', rows);
+    // }
+  }
 }

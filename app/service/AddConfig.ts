@@ -24,4 +24,14 @@ export default class AddConfig extends Service {
     const one = ctx.service.model.config.addfPosition(data);
     return one;
   }
+
+  /**
+   * 其他职位信息类别
+   * @param data - 其他职位分类
+   */
+  public otherPosition(data) {
+    const { ctx } = this;
+    const one = ctx.service.model.config.otherPosition(data);
+    return one;
+  }
 }

@@ -67,20 +67,13 @@ export default class InsectController extends Controller {
           console.log(error);
         } else {
           let $ = res.$;
-          let ele = $("#sidebar-left");
-          // 获取第一级分类
-          // 获取二级分类
           let part = $("#sidebar-right ul li");
-          ele.each(function(_, li){
-            let father = $(li).find('a').text()
-            console.log('一级分类为： + father' + father);
-            part.each(function(_, item){
-              // let second = $(item).find('strong').text();
-              // console.log('this is 二级分类' + second);
-  
-              // 获取二级和三级分类 第一个是二级分类,之后的为三级分类
-              let son = $(item).find('a').text();
-              console.log('this is 二级和三级分类：' + son);
+
+          // 循环输出二级分类
+          part.each(function(_, item) {
+            $(item).find('a').each(function(_, a){
+              let son = $(a).text();
+              ctx.service.addConfig.otherPosition(son);
             });
           });
         }
